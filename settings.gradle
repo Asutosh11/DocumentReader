@@ -1,0 +1,2 @@
+rootProject.name='DocumentReader'
+include ':app'
