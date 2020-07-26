@@ -1,6 +1,5 @@
 [![](https://jitpack.io/v/Asutosh11/DocumentReader.svg)](https://jitpack.io/#Asutosh11/DocumentReader)
 
-
 # DocumentReader
  
 This library reads word documents (.doc and .docx), txt and PDF files, and gives the output content of the document as a String.
