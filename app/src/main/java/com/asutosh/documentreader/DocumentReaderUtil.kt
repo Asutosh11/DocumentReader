@@ -28,8 +28,8 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun getMimeType(uri: Uri, context: Context): String? {
-            val contentResolver: ContentResolver = context.contentResolver
+        fun getMimeType(uri: Uri, context: Context?): String? {
+            val contentResolver: ContentResolver = context?.contentResolver!!
             return contentResolver.getType(uri)
         }
 
@@ -37,9 +37,9 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun readPdfFileContent(uri: Uri?, context: Context): String {
+        fun readPdfFileContent(uri: Uri?, context: Context?): String {
             PDFBoxResourceLoader.init(context)
-            val file = File(FilePathHelper(context).getPath(uri))
+            val file = File(context?.let { FilePathHelper(it).getPath(uri!!) }!!)
 
             val parser = PDFParser(RandomAccessFile(file, "r"))
             parser.parse()
@@ -58,7 +58,7 @@ class DocumentReaderUtil {
          * @param file - the file on device
          * @param context - context object
          */
-        fun readPdfFileContent(file: File?, context: Context): String {
+        fun readPdfFileContent(file: File?, context: Context?): String {
             PDFBoxResourceLoader.init(context)
 
             val parser = PDFParser(RandomAccessFile(file, "r"))
@@ -78,13 +78,13 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun readTxtFileContent(uri: Uri?, context: Context): String {
+        fun readTxtFileContent(uri: Uri?, context: Context?): String {
 
-            val inputStream = context.contentResolver.openInputStream(uri!!)
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
+            val inputStream = context?.contentResolver?.openInputStream(uri!!)
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream!!, "UTF-8"))
 
             val inputString = bufferedReader.use { it.readText() }
-            inputStream?.close()
+            inputStream.close()
             bufferedReader.close()
 
             return inputString
@@ -94,9 +94,9 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun readWordDocFile(uri: Uri?, context: Context): String {
+        fun readWordDocFile(uri: Uri?, context: Context?): String {
 
-            val file = File(FilePathHelper(context).getPath(uri))
+            val file = File(context?.let { FilePathHelper(it).getPath(uri!!) }!!)
             val fullDocumentString: StringBuilder = StringBuilder()
             val fis = FileInputStream(file.absolutePath)
 
@@ -126,7 +126,7 @@ class DocumentReaderUtil {
          * @param file - the file on device
          * @param context - context object
          */
-        fun readWordDocFile(file: File?, context: Context): String {
+        fun readWordDocFile(file: File?, context: Context?): String {
 
             val fullDocumentString: StringBuilder = StringBuilder()
             val fis = FileInputStream(file?.absolutePath!!)
