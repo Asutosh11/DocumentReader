@@ -19,10 +19,12 @@ class FilePathHelper(var context: Context) {
 
     @SuppressLint("NewApi")
     fun getPath(uri: Uri): String? {
+
         // check here to KITKAT or new version
         val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
         var selection: String? = null
         var selectionArgs: Array<String>? = null
+
         // DocumentProvider
         if (isKitKat) { // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
@@ -158,7 +160,13 @@ class FilePathHelper(var context: Context) {
                 )
                 var cursor: Cursor? = null
                 try {
-                    cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+                    cursor = context.contentResolver.query(
+                        uri,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null
+                    )
                     val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                     if (cursor.moveToFirst()) {
                         return cursor.getString(columnIndex)
@@ -181,11 +189,12 @@ class FilePathHelper(var context: Context) {
         val relativePath = "/" + pathData[1]
         var fullPath = ""
 
-        // on my Sony devices (4.4.4 & 5.1.1), `type` is a dynamic string
-        // something like "71F8-2C0A", some kind of unique id per storage
-        // don't know any API that can get the root path of that storage based on its id.
-        //
-        // so no "primary" type, but let the check here for other devices
+        /**
+         * on my Sony devices (4.4.4 & 5.1.1), `type` is a dynamic string
+         * something like "71F8-2C0A", some kind of unique id per storage
+         * don't know any API that can get the root path of that storage based on its id.
+         * so no "primary" type, but let the check here for other devices
+         */
         if ("primary".equals(type, ignoreCase = true)) {
             fullPath =
                 Environment.getExternalStorageDirectory().toString() + relativePath
@@ -193,11 +202,13 @@ class FilePathHelper(var context: Context) {
                 return fullPath
             }
         }
-        // Environment.isExternalStorageRemovable() is `true` for external and internal storage
-        // so we cannot relay on it.
-        //
-        // instead, for each possible path, check if file exists
-        // we'll start with secondary storage as this could be our (physically) removable sd card
+
+        /*
+         * Environment.isExternalStorageRemovable() is `true` for external and internal storage
+         * so we cannot relay on it.
+         * instead, for each possible path, check if file exists
+         * we'll start with secondary storage as this could be our (physically) removable sd card
+         */
         fullPath = System.getenv("SECONDARY_STORAGE") + relativePath
         if (fileExists(fullPath)) {
             return fullPath
@@ -208,14 +219,15 @@ class FilePathHelper(var context: Context) {
         } else fullPath
     }
 
+    /**
+     * Get the column indexes of the data in the Cursor,
+     * move to the first row in the Cursor, get the data,
+     * and display it.
+     * */
     private fun getDriveFilePath(uri: Uri): String {
         val returnCursor =
             context.contentResolver.query(uri, null, null, null, null)
-        /*
-         * Get the column indexes of the data in the Cursor,
-         *     * move to the first row in the Cursor, get the data,
-         *     * and display it.
-         * */
+
         val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
         returnCursor.moveToFirst()
         val name = returnCursor.getString(nameIndex)
@@ -251,18 +263,18 @@ class FilePathHelper(var context: Context) {
      * @return
      */
     private fun copyFileToInternalStorage(
-        uri: Uri,
-        newDirName: String
+        uri: Uri, newDirName: String
     ): String {
         val returnCursor = context.contentResolver.query(
             uri, arrayOf(
                 OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE
             ), null, null, null
         )
-        /*
+
+        /**
          * Get the column indexes of the data in the Cursor,
-         *     * move to the first row in the Cursor, get the data,
-         *     * and display it.
+         * move to the first row in the Cursor, get the data,
+         * and display it.
          * */
         val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
         returnCursor.moveToFirst()
