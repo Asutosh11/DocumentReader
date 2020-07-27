@@ -18,7 +18,8 @@ import java.io.FileOutputStream
 class FilePathHelper(var context: Context) {
 
     @SuppressLint("NewApi")
-    fun getPath(uri: Uri): String? { // check here to KITKAT or new version
+    fun getPath(uri: Uri): String? {
+        // check here to KITKAT or new version
         val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
         var selection: String? = null
         var selectionArgs: Array<String>? = null
@@ -138,9 +139,8 @@ class FilePathHelper(var context: Context) {
                 if (isGoogleDriveUri(uri)) {
                     return getDriveFilePath(uri)
                 }
-                return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // return getFilePathFromURI(context,uri);
+                return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     copyFileToInternalStorage(uri, "userfiles")
-                    // return getRealPathFromURI(context,uri);
                 } else {
                     getDataColumn(context, uri, null, null)
                 }
@@ -158,12 +158,10 @@ class FilePathHelper(var context: Context) {
                 )
                 var cursor: Cursor? = null
                 try {
-                    cursor = context.contentResolver
-                        .query(uri, projection, selection, selectionArgs, null)
-                    val column_index =
-                        cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                    cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+                    val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                     if (cursor.moveToFirst()) {
-                        return cursor.getString(column_index)
+                        return cursor.getString(columnIndex)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -182,11 +180,12 @@ class FilePathHelper(var context: Context) {
         val type = pathData[0]
         val relativePath = "/" + pathData[1]
         var fullPath = ""
+
         // on my Sony devices (4.4.4 & 5.1.1), `type` is a dynamic string
-// something like "71F8-2C0A", some kind of unique id per storage
-// don't know any API that can get the root path of that storage based on its id.
-//
-// so no "primary" type, but let the check here for other devices
+        // something like "71F8-2C0A", some kind of unique id per storage
+        // don't know any API that can get the root path of that storage based on its id.
+        //
+        // so no "primary" type, but let the check here for other devices
         if ("primary".equals(type, ignoreCase = true)) {
             fullPath =
                 Environment.getExternalStorageDirectory().toString() + relativePath
@@ -195,10 +194,10 @@ class FilePathHelper(var context: Context) {
             }
         }
         // Environment.isExternalStorageRemovable() is `true` for external and internal storage
-// so we cannot relay on it.
-//
-// instead, for each possible path, check if file exists
-// we'll start with secondary storage as this could be our (physically) removable sd card
+        // so we cannot relay on it.
+        //
+        // instead, for each possible path, check if file exists
+        // we'll start with secondary storage as this could be our (physically) removable sd card
         fullPath = System.getenv("SECONDARY_STORAGE") + relativePath
         if (fileExists(fullPath)) {
             return fullPath
@@ -218,10 +217,8 @@ class FilePathHelper(var context: Context) {
          *     * and display it.
          * */
         val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-        val sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE)
         returnCursor.moveToFirst()
         val name = returnCursor.getString(nameIndex)
-        val size = java.lang.Long.toString(returnCursor.getLong(sizeIndex))
         val file = File(context.cacheDir, name)
         try {
             val inputStream =
@@ -268,10 +265,8 @@ class FilePathHelper(var context: Context) {
          *     * and display it.
          * */
         val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-        val sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE)
         returnCursor.moveToFirst()
         val name = returnCursor.getString(nameIndex)
-        val size = java.lang.Long.toString(returnCursor.getLong(sizeIndex))
         val output: File
         output = if (newDirName != "") {
             val dir =
