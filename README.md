@@ -20,7 +20,7 @@ repositories {
 2.<code>
 dependencies {
   ....
-  implementation 'com.github.Asutosh11:DocumentReader:0.1'
+  implementation 'com.github.Asutosh11:DocumentReader:0.11'
 }
 </code>
 
@@ -48,7 +48,7 @@ dependencies {
     Even if you don't know your file type, 
     this library detects the file mime type and gives you the content of the file as a String
     */	      
-    val DocString : String = when (DocumentReaderUtil.getMimeType(file, applicationContext)) {
+    val docString : String = when (DocumentReaderUtil.getMimeType(file, applicationContext)) {
             "text/plain" -> DocumentReaderUtil.readTxtFileContent(file, applicationContext)
             "application/pdf" -> DocumentReaderUtil.readPdfFileContent(file, applicationContext)
             "application/msword" -> DocumentReaderUtil.readWordDocFile(file, applicationContext)
