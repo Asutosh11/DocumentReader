@@ -38,13 +38,13 @@ class DocumentReaderUtil {
          * @param context - context object
          */
         fun readPdfFileContent(uri: Uri?, context: Context): String {
-            PDFBoxResourceLoader.init(context);
+            PDFBoxResourceLoader.init(context)
             val file = File(FilePathHelper(context).getPath(uri))
 
             val parser = PDFParser(RandomAccessFile(file, "r"))
             parser.parse()
 
-            val cosDoc: COSDocument = parser.getDocument()
+            val cosDoc: COSDocument = parser.document
 
             val pdfStripper = PDFTextStripper()
             var document: PDDocument? = null
@@ -59,12 +59,12 @@ class DocumentReaderUtil {
          * @param context - context object
          */
         fun readPdfFileContent(file: File?, context: Context): String {
-            PDFBoxResourceLoader.init(context);
+            PDFBoxResourceLoader.init(context)
 
             val parser = PDFParser(RandomAccessFile(file, "r"))
             parser.parse()
 
-            val cosDoc: COSDocument = parser.getDocument()
+            val cosDoc: COSDocument = parser.document
 
             val pdfStripper = PDFTextStripper()
             var document: PDDocument? = null
@@ -100,17 +100,17 @@ class DocumentReaderUtil {
             val fullDocumentString: StringBuilder = StringBuilder()
             val fis = FileInputStream(file.absolutePath)
 
-            if (file.extension.equals("doc")) {
+            if (file.extension == "doc") {
                 val doc = HWPFDocument(fis)
                 val we = WordExtractor(doc)
-                val paragraphs: Array<String> = we.getParagraphText()
+                val paragraphs: Array<String> = we.paragraphText
 
                 for (para in paragraphs) {
                     fullDocumentString.append(para)
                 }
                 fis.close()
 
-            } else if (file.extension.equals("docx")) {
+            } else if (file.extension == "docx") {
                 val document = XWPFDocument(fis)
                 val paragraphs: List<XWPFParagraph> = document.paragraphs
 
@@ -123,7 +123,7 @@ class DocumentReaderUtil {
         }
 
         /**
-         * @param uri - the file on device
+         * @param file - the file on device
          * @param context - context object
          */
         fun readWordDocFile(file: File?, context: Context): String {
@@ -131,17 +131,17 @@ class DocumentReaderUtil {
             val fullDocumentString: StringBuilder = StringBuilder()
             val fis = FileInputStream(file?.absolutePath!!)
 
-            if (file.extension.equals("doc")) {
+            if (file.extension == "doc") {
                 val doc = HWPFDocument(fis)
                 val we = WordExtractor(doc)
-                val paragraphs: Array<String> = we.getParagraphText()
+                val paragraphs: Array<String> = we.paragraphText
 
                 for (para in paragraphs) {
                     fullDocumentString.append(para)
                 }
                 fis.close()
 
-            } else if (file.extension.equals("docx")) {
+            } else if (file.extension == "docx") {
                 val document = XWPFDocument(fis)
                 val paragraphs: List<XWPFParagraph> = document.paragraphs
 
