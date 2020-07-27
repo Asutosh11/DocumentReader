@@ -7,19 +7,17 @@ This library reads word documents (.doc and .docx), txt and PDF files, and gives
 <i>If you have ever tried to read contents of a PDF or MS word document on Android, you know how painful it is. 
 This library makes your work easy.</i>
 
-<h2>How to use?<h2>
-
-<p><b>Import in build.gradle (Module: app)</b></p>
+<p><b>How to import in gradle?</b></p>
 
 
-<code>
+1.<code>
 repositories {
 			...
 			maven { url 'https://jitpack.io' }
 }
 </code><br/>
 
-<code>
+2.<code>
 dependencies {
   ....
   implementation 'com.github.Asutosh11:DocumentReader:0.11'
