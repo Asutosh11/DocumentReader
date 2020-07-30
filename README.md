@@ -1,4 +1,7 @@
 [![](https://jitpack.io/v/Asutosh11/DocumentReader.svg)](https://jitpack.io/#Asutosh11/DocumentReader)
+[![API](https://img.shields.io/badge/API-5%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=5)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DocumentReader-blue.svg?style=flat)](https://android-arsenal.com/details/1/8136)
+
 
 # DocumentReader
  
