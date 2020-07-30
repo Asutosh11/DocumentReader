@@ -1,4 +1,7 @@
 [![](https://jitpack.io/v/Asutosh11/DocumentReader.svg)](https://jitpack.io/#Asutosh11/DocumentReader)
+[![API](https://img.shields.io/badge/API-5%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=5)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DocumentReader-blue.svg?style=flat)](https://android-arsenal.com/details/1/8136)
+
 
 # DocumentReader
  
@@ -7,7 +10,7 @@ This library reads word documents (.doc and .docx), txt and PDF files, and gives
 <i>If you have ever tried to read contents of a PDF or MS word document on Android, you know how painful it is. 
 This library makes your work easy.</i>
 
-<p><b>How to import in gradle?</b></p>
+<p><b>Dependency for build.gradle (Module: app)</b></p>
 
 
 1.<code>
@@ -24,7 +27,7 @@ dependencies {
 }
 </code>
 
-<p><b>Usage in code</b></p>
+<p><b>How to use it?</b></p>
 
     // Read a pdf file from Uri
     val docString : String = DocumentReaderUtil.readPdfFileContent(fileUri, applicationContext)
