@@ -26,7 +26,8 @@ class FilePathHelper(var context: Context) {
         var selectionArgs: Array<String>? = null
 
         // DocumentProvider
-        if (isKitKat) { // ExternalStorageProvider
+        if (isKitKat) {
+            // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":").toTypedArray()
@@ -79,7 +80,8 @@ class FilePathHelper(var context: Context) {
                                     java.lang.Long.valueOf(id)
                                 )
                                 getDataColumn(context, contentUri, null, null)
-                            } catch (e: NumberFormatException) { //In Android 8 and Android P the id is not a number
+                            } catch (e: NumberFormatException) {
+                                //In Android 8 and Android P the id is not a number
                                 uri.path!!.replaceFirst("^/document/raw:".toRegex(), "")
                                     .replaceFirst("^raw:".toRegex(), "")
                             }
@@ -262,9 +264,7 @@ class FilePathHelper(var context: Context) {
      * @param newDirName if you want to create a directory, you can set this variable
      * @return
      */
-    private fun copyFileToInternalStorage(
-        uri: Uri, newDirName: String
-    ): String {
+    private fun copyFileToInternalStorage(uri: Uri, newDirName: String): String {
         val returnCursor = context.contentResolver.query(
             uri, arrayOf(
                 OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE
@@ -281,8 +281,7 @@ class FilePathHelper(var context: Context) {
         val name = returnCursor.getString(nameIndex)
         val output: File
         output = if (newDirName != "") {
-            val dir =
-                File(context.filesDir.toString() + "/" + newDirName)
+            val dir = File(context.filesDir.toString() + "/" + newDirName)
             if (!dir.exists()) {
                 dir.mkdir()
             }
@@ -312,12 +311,7 @@ class FilePathHelper(var context: Context) {
         return copyFileToInternalStorage(uri, "whatsapp")
     }
 
-    private fun getDataColumn(
-        context: Context,
-        uri: Uri?,
-        selection: String?,
-        selectionArgs: Array<String>?
-    ): String? {
+    private fun getDataColumn(context: Context, uri: Uri?, selection: String?, selectionArgs: Array<String>?): String? {
         var cursor: Cursor? = null
         val column = "_data"
         val projection = arrayOf(column)
