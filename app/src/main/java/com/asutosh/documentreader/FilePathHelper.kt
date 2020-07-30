@@ -46,11 +46,8 @@ class FilePathHelper(var context: Context) {
                     var cursor: Cursor? = null
                     try {
                         cursor = context.contentResolver.query(
-                            uri,
-                            arrayOf(MediaStore.MediaColumns.DISPLAY_NAME),
-                            null,
-                            null,
-                            null
+                            uri, arrayOf(MediaStore.MediaColumns.DISPLAY_NAME),
+                            null, null, null
                         )
                         if (cursor != null && cursor.moveToFirst()) {
                             val fileName = cursor.getString(0)
@@ -101,12 +98,7 @@ class FilePathHelper(var context: Context) {
                         e.printStackTrace()
                     }
                     if (contentUri != null) {
-                        return getDataColumn(
-                            context,
-                            contentUri,
-                            null,
-                            null
-                        )
+                        return getDataColumn(context, contentUri, null, null)
                     }
                 }
             }
@@ -125,10 +117,7 @@ class FilePathHelper(var context: Context) {
                 }
                 selection = "_id=?"
                 selectionArgs = arrayOf(split[1])
-                return getDataColumn(
-                    context, contentUri, selection,
-                    selectionArgs
-                )
+                return getDataColumn(context, contentUri, selection, selectionArgs)
             }
             if (isGoogleDriveUri(uri)) {
                 return getDriveFilePath(uri)
@@ -266,9 +255,8 @@ class FilePathHelper(var context: Context) {
      */
     private fun copyFileToInternalStorage(uri: Uri, newDirName: String): String {
         val returnCursor = context.contentResolver.query(
-            uri, arrayOf(
-                OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE
-            ), null, null, null
+            uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE),
+            null, null, null
         )
 
         /**
@@ -311,7 +299,12 @@ class FilePathHelper(var context: Context) {
         return copyFileToInternalStorage(uri, "whatsapp")
     }
 
-    private fun getDataColumn(context: Context, uri: Uri?, selection: String?, selectionArgs: Array<String>?): String? {
+    private fun getDataColumn(
+        context: Context,
+        uri: Uri?,
+        selection: String?,
+        selectionArgs: Array<String>?
+    ): String? {
         var cursor: Cursor? = null
         val column = "_data"
         val projection = arrayOf(column)
