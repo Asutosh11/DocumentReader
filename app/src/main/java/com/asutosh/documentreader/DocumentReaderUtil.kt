@@ -37,7 +37,7 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun readPdfFileContent(uri: Uri?, context: Context?): String {
+        fun readPdfFromUri(uri: Uri?, context: Context?): String {
             PDFBoxResourceLoader.init(context)
             val file = File(context?.let { FilePathHelper(it).getPath(uri!!) }!!)
 
@@ -56,7 +56,7 @@ class DocumentReaderUtil {
          * @param file - the file on device
          * @param context - context object
          */
-        fun readPdfFileContent(file: File?, context: Context?): String {
+        fun readPdfFromFile(file: File?, context: Context?): String {
             PDFBoxResourceLoader.init(context)
 
             val parser = PDFParser(RandomAccessFile(file, "r"))
@@ -67,8 +67,6 @@ class DocumentReaderUtil {
             val pdfStripper = PDFTextStripper()
             var document: PDDocument? = null
             document = PDDocument(cosDoc)
-            pdfStripper.startPage = 0
-            pdfStripper.endPage = 1
             return pdfStripper.getText(document)
         }
 
@@ -76,7 +74,7 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun readTxtFileContent(uri: Uri?, context: Context?): String {
+        fun readTxtFromUri(uri: Uri?, context: Context?): String {
 
             val inputStream = context?.contentResolver?.openInputStream(uri!!)
             val bufferedReader = BufferedReader(InputStreamReader(inputStream!!, "UTF-8"))
@@ -92,7 +90,7 @@ class DocumentReaderUtil {
          * @param uri - uri of the file on device
          * @param context - context object
          */
-        fun readWordDocFile(uri: Uri?, context: Context?): String {
+        fun readWordDocFromUri(uri: Uri?, context: Context?): String {
 
             val file = File(context?.let { FilePathHelper(it).getPath(uri!!) }!!)
             val fullDocumentString: StringBuilder = StringBuilder()
@@ -124,7 +122,7 @@ class DocumentReaderUtil {
          * @param file - the file on device
          * @param context - context object
          */
-        fun readWordDocFile(file: File?, context: Context?): String {
+        fun readWordDocFromFile(file: File?, context: Context?): String {
 
             val fullDocumentString: StringBuilder = StringBuilder()
             val fis = FileInputStream(file?.absolutePath!!)
