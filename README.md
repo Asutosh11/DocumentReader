@@ -23,39 +23,39 @@ repositories {
 2.<code>
 dependencies {
   ....
-  implementation 'com.github.Asutosh11:DocumentReader:0.11'
+  implementation 'com.github.Asutosh11:DocumentReader:0.12'
 }
 </code>
 
 <p><b>How to use it?</b></p>
 
     // Read a pdf file from Uri
-    val docString : String = DocumentReaderUtil.readPdfFileContent(fileUri, applicationContext)
+    val docString : String = DocumentReaderUtil.readPdfFromUri(fileUri, applicationContext)
     // Read a pdf file from File
-    val docString : String = DocumentReaderUtil.readPdfFileContent(file, applicationContext)
+    val docString : String = DocumentReaderUtil.readPdfFromFile(file, applicationContext)
 
     // read a doc file from Uri
-    val docString : String = DocumentReaderUtil.readWordDocFile(fileUri, applicationContext)
+    val docString : String = DocumentReaderUtil.readWordDocFromUri(fileUri, applicationContext)
     // read a doc file from File
-    val docString : String = DocumentReaderUtil.readWordDocFile(fileUri, applicationContext)
+    val docString : String = DocumentReaderUtil.readWordDocFromFile(file, applicationContext)
 
     // read a docx file from Uri
-    val docString : String = DocumentReaderUtil.readWordDocFile(fileUri, applicationContext)
+    val docString : String = DocumentReaderUtil.readWordDocFromUri(fileUri, applicationContext)
     // read a docx file from File
-    val docString : String = DocumentReaderUtil.readWordDocFile(file, applicationContext)
+    val docString : String = DocumentReaderUtil.readWordDocFromFile(file, applicationContext)
 
     // read a txt file from Uri
-    val docString : String = DocumentReaderUtil.readTxtFileContent(fileUri, applicationContext)
+    val docString : String = DocumentReaderUtil.readTxtFromUri(fileUri, applicationContext)
     
     /*
     Even if you don't know your file type, 
     this library detects the file mime type and gives you the content of the file as a String
     */	      
-    val docString : String = when (DocumentReaderUtil.getMimeType(file, applicationContext)) {
-            "text/plain" -> DocumentReaderUtil.readTxtFileContent(file, applicationContext)
-            "application/pdf" -> DocumentReaderUtil.readPdfFileContent(file, applicationContext)
-            "application/msword" -> DocumentReaderUtil.readWordDocFile(file, applicationContext)
+    val docString : String = when (DocumentReaderUtil.getMimeType(fileUri, applicationContext)) {
+            "text/plain" -> DocumentReaderUtil.readTxtFromUri(fileUri, applicationContext)
+            "application/pdf" -> DocumentReaderUtil.readPdfFromUri(fileUri, applicationContext)
+            "application/msword" -> DocumentReaderUtil.readWordDocFromUri(fileUri, applicationContext)
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> 
-                                        DocumentReaderUtil.readWordDocFile(file, applicationContext)
+                                        DocumentReaderUtil.readWordDocFromUri(fileUri, applicationContext)
              else -> ""
             }
