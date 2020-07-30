@@ -49,8 +49,6 @@ class DocumentReaderUtil {
             val pdfStripper = PDFTextStripper()
             var document: PDDocument? = null
             document = PDDocument(cosDoc)
-            pdfStripper.startPage = 0
-            pdfStripper.endPage = 1
             return pdfStripper.getText(document)
         }
 
