@@ -69,3 +69,7 @@ val docString : String = when (DocumentReaderUtil.getMimeType(fileUri, applicati
          else -> ""
 	 }
 ```
+<br>
+<h2><b>Thanks</b></h2>
+<a href = "https://tika.apache.org/">The Apache Tika project</a><br>
+<a href = "https://github.com/TomRoush/PdfBox-Android">Apache's PdfBox port by TomRoush</a>
