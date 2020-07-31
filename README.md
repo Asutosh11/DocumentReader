@@ -24,6 +24,24 @@ repositories {
 dependencies {
   ....
   implementation 'com.github.Asutosh11:DocumentReader:0.12'
+  implementation "androidx.multidex:multidex:2.0.1"
+}
+```
+
+```
+packagingOptions {
+   exclude 'META-INF/DEPENDENCIES'
+   exclude 'META-INF/INDEX.LIST'
+   exclude 'META-INF/spring.handlers'
+   exclude 'META-INF/spring.schemas'
+   exclude 'META-INF/cxf/bus-extensions.txt'
+}
+```
+
+```
+defaultConfig {
+   ...
+   multiDexEnabled true
 }
 ```
 
