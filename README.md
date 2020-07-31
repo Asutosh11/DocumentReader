@@ -10,7 +10,7 @@ This library reads word documents (.doc and .docx), txt and PDF files, and gives
 <i>If you have ever tried to read contents of a PDF or MS word document on Android, you know how painful it is. 
 This library makes your work easy.</i>
 
-<p><b>Dependency for build.gradle (Module: app)</b></p>
+<br><h3><b>Dependency for build.gradle (Module: app)</b></h3><br>
 
 
 ```
@@ -49,7 +49,7 @@ defaultConfig {
 }
 ```
 
-<p><b>How to use it?</b></p>
+<br><h3><b>How to use it?</b></h3><br>
 
 ```
 // Read a pdf file from Uri
