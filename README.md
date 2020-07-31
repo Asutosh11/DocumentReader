@@ -25,13 +25,13 @@ dependencies {
   ....
   implementation 'com.github.Asutosh11:DocumentReader:0.12'
   
-  // use this only if you get a multidex exception
+  // NOTE: use this only if you get a multidex exception
   implementation "androidx.multidex:multidex:2.0.1"
 }
 ```
 
 ```
-// use this only if you get an error like - More than one file was found with OS independent path
+// NOTE: use this only if you get an error like - More than one file was found with OS independent path
 packagingOptions {
    exclude 'META-INF/DEPENDENCIES'
    exclude 'META-INF/INDEX.LIST'
@@ -42,7 +42,7 @@ packagingOptions {
 ```
 
 ```
-// use this only if you get a multidex exception
+// NOTE: use this only if you get a multidex exception
 defaultConfig {
    ...
    multiDexEnabled true
