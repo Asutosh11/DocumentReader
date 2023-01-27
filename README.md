@@ -10,16 +10,14 @@ This library reads word documents (.doc and .docx), txt and PDF files, and gives
 <i>If you have ever tried to read contents of a PDF or MS word document on Android, you know how painful it is. 
 This library makes your work easy.</i>
 
-<br><h3><b>Dependency for build.gradle (Module: app)</b></h3><br>
-
-
+<br><h3><b>Dependency for build.gradle (Project level)</b></h3>
 ```
 repositories {
   ...
   maven { url 'https://jitpack.io' }
 }
 ```
-
+<br><h3><b>Dependency for build.gradle (Module: app)</b></h3>
 ```
 dependencies {
   ....
@@ -49,7 +47,7 @@ defaultConfig {
 }
 ```
 
-<br><h3><b>How to use it?</b></h3><br>
+<br><h3><b>How to use it?</b></h3>
 
 ```
 // Read a pdf file from Uri
